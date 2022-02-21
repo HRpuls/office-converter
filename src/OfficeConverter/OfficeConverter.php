@@ -60,6 +60,16 @@ class OfficeConverter
                 $outdir,
                 $outputExtension
             ], true) ,'</pre>';
+
+            if (file_exists($outdir. '/.~lock.'.$filename.'#')) {
+                $deletedFile = unlink($outdir. '/.~lock.'.$filename.'#');
+                if ($deletedFile) {
+                    echo '<pre>Deleted Successfull: ', print_r($deletedFile, true) ,'</pre>';
+                } else {
+                    echo '<pre>Deletion Failed : ', print_r($deletedFile, true) ,'</pre>';
+                }
+            }
+
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
 
