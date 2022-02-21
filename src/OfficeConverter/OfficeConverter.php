@@ -39,8 +39,8 @@ class OfficeConverter
      *
      * @throws OfficeConverterException
      */
-    public function convertTo($filename)
-    {
+    public function convertTo($filename, $timeout = 0)
+    { 
         $outputExtension = pathinfo($filename, PATHINFO_EXTENSION);
         $supportedExtensions = $this->getAllowedConverter($this->extension);
 
@@ -49,7 +49,7 @@ class OfficeConverter
         }
 
         $outdir = $this->tempPath;
-        $shell = $this->exec($this->makeCommand($outdir, $outputExtension));
+        $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
         if (0 != $shell['return']) {
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
@@ -122,12 +122,13 @@ class OfficeConverter
      *
      * @return string
      */
-    protected function makeCommand($outputDirectory, $outputExtension)
+    protected function makeCommand($outputDirectory, $outputExtension, $timeout)
     {
+        $timeOutCmd = $timeout !== 0 ? 'timeout 0.001s echo "TIMED OUT IN 0.001s"' : 'echo "DID NOT TIME OUT"';
         $oriFile = escapeshellarg($this->file);
         $outputDirectory = escapeshellarg($outputDirectory);
 
-        return "{$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
+        return "{$timeOutCmd} {$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
     }
 
     /**
