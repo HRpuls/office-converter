@@ -125,7 +125,7 @@ class OfficeConverter
      */
     protected function makeCommand($outputDirectory, $outputExtension, $timeout)
     {
-        $timeOutCmd = $timeout !== 0 ? 'timeout 0.001s echo "TIMED OUT IN 0.001s"' : 'echo "DID NOT TIME OUT"';
+        $timeOutCmd = $timeout !== 0 ? 'timeout '.$timeout.'s echo "TIMED OUT IN '.$timeout.' seconds"' : 'echo "DID NOT TIME OUT"';
         $oriFile = escapeshellarg($this->file);
         $outputDirectory = escapeshellarg($outputDirectory);
         return "{$timeOutCmd} {$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
