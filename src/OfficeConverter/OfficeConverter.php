@@ -50,25 +50,18 @@ class OfficeConverter
 
         $outdir = $this->tempPath;
         $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
-        echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
+        // echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
         if (0 != $shell['return']) {
-            if (124 === $shell['return']) echo '<pre>info : ', print_r([
-                $filename,
-                file_exists($outdir.'/'.$filename) ? "Exists" : " Does not exist",
-                '.~lock.'.$filename.'#',
-                file_exists($outdir. '/.~lock.'.$filename.'#') ? "Exists" : " Does not exist",
-                $outdir,
-                $outputExtension
-            ], true) ,'</pre>';
+            // echo '<pre>info : ', print_r([
+            //     $filename,
+            //     file_exists($outdir.'/'.$filename) ? "Exists" : " Does not exist",
+            //     '.~lock.'.$filename.'#',
+            //     file_exists($outdir. '/.~lock.'.$filename.'#') ? "Exists" : " Does not exist",
+            //     $outdir,
+            //     $outputExtension
+            // ], true) ,'</pre>';
 
-            if (file_exists($outdir. '/.~lock.'.$filename.'#')) {
-                $deletedFile = unlink($outdir. '/.~lock.'.$filename.'#');
-                if ($deletedFile) {
-                    echo '<pre>Deleted Successfull: ', print_r($deletedFile, true) ,'</pre>';
-                } else {
-                    echo '<pre>Deletion Failed : ', print_r($deletedFile, true) ,'</pre>';
-                }
-            }
+            if (file_exists($outdir. '/.~lock.'.$filename.'#')) unlink($outdir. '/.~lock.'.$filename.'#');
 
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
@@ -146,7 +139,7 @@ class OfficeConverter
         $timeOutCmd = $timeout !== 0 ? 'timeout '.$timeout.'s' : '';
         $oriFile = escapeshellarg($this->file);
         $outputDirectory = escapeshellarg($outputDirectory);
-        return "time {$timeOutCmd} {$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
+        return "{$timeOutCmd} {$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
     }
 
     /**
