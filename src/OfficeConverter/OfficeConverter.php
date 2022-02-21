@@ -56,8 +56,8 @@ class OfficeConverter
                 $filename,
                 $outdir,
                 $outputExtension,
-                "$filename ". file_exists($outdir. '/' . $filename . '.' . 'pdf') ?  "Exists" : " Does not exist",
-                ".~lock.$filename#" .file_exists($outdir. '/' . $filename . '.' . 'pdf') ?  "Exists" : " Does not exist"
+                "$filename ". file_exists($outdir.'/'.$filename.'.'.'pdf') ? "Exists" : " Does not exist",
+                ".~lock".$filename."#" .file_exists($outdir. '/.~lock'.$filename.'#') ? "Exists" : " Does not exist"
             ], true) ,'</pre>';
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
