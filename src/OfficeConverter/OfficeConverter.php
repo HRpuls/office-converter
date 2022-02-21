@@ -52,10 +52,14 @@ class OfficeConverter
         $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
         echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
         if (0 != $shell['return']) {
-            if (124 === $shell['return']) echo '<pre>$outputExtension : ', print_r($outputExtension, true) ,'</pre>';
+            if (124 === $shell['return']) echo '<pre>info : ', print_r([
+                $filename,
+                $outdir,
+                $outputExtension
+            ], true) ,'</pre>';
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
-        
+
         return $this->prepOutput($outdir, $filename, $outputExtension);
     }
 
