@@ -50,6 +50,7 @@ class OfficeConverter
 
         $outdir = $this->tempPath;
         $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
+        echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
         if (0 != $shell['return']) {
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
