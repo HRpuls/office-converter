@@ -55,7 +55,9 @@ class OfficeConverter
             if (124 === $shell['return']) echo '<pre>info : ', print_r([
                 $filename,
                 $outdir,
-                $outputExtension
+                $outputExtension,
+                "$filename ". file_exists($outdir. '/' . $filename . '.' . 'pdf') ?  "Exists" : " Does not exist",
+                ".~lock.$filename#" .file_exists($outdir. '/' . $filename . '.' . 'pdf') ?  "Exists" : " Does not exist"
             ], true) ,'</pre>';
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
