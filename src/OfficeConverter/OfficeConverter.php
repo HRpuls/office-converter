@@ -50,7 +50,7 @@ class OfficeConverter
 
         $outdir = $this->tempPath;
         $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
-        echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
+        // echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
         if (0 != $shell['return']) {
             throw new OfficeConverterException('Convertion Failure! Contact Server Admin.');
         }
@@ -125,10 +125,10 @@ class OfficeConverter
      */
     protected function makeCommand($outputDirectory, $outputExtension, $timeout)
     {
-        $timeOutCmd = $timeout !== 0 ? 'timeout '.$timeout.'s echo "TIMED OUT IN '.$timeout.' seconds"' : 'echo "DID NOT TIME OUT"';
+        $timeOutCmd = $timeout !== 0 ? 'timeout '.$timeout.'s' : '';
         $oriFile = escapeshellarg($this->file);
         $outputDirectory = escapeshellarg($outputDirectory);
-        return "time {$timeOutCmd} {$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
+        return "{$timeOutCmd} {$this->bin} --headless --convert-to {$outputExtension} {$oriFile} --outdir {$outputDirectory}";
     }
 
     /**
