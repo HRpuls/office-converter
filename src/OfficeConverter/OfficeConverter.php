@@ -50,20 +50,18 @@ class OfficeConverter
 
         $outdir = $this->tempPath;
         $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
-        echo '<pre>$shell : ', print_r($shell, true) ,'</pre>';
-        $shell['return'] = 124;
+        // $shell['return'] = 124; //!for testing (mimic timeout)
         if (0 != $shell['return']) {
             
             if (124 === $shell['return']) {
-                echo '<pre>info : ', print_r([
-                    $filename,
-                    $outdir,
-                    $outputExtension
-                ], true) ,'</pre>';
+                // echo '<pre>info : ', print_r([
+                //     $filename,
+                //     $outdir,
+                //     $outputExtension
+                // ], true) ,'</pre>';
 
                 if (file_exists($outdir. '/.~lock.'.$filename.'#')) unlink($outdir. '/.~lock.'.$filename.'#');
-                if (file_exists($outdir.$filename)) unlink($outdir.$filename);
-
+                // if (file_exists($outdir.$filename)) unlink($outdir.'/'.$filename); //!for testing (deletes file every time)
                 throw new OfficeConverterException('Convertion Timed Out! Contact Server Admin.');
             }
 
