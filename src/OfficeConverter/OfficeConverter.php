@@ -62,6 +62,7 @@ class OfficeConverter
                 ], true) ,'</pre>';
 
                 if (file_exists($outdir. '/.~lock.'.$filename.'#')) unlink($outdir. '/.~lock.'.$filename.'#');
+                if (file_exists($outdir.$filename)) unlink($outdir.$filename);
 
                 throw new OfficeConverterException('Convertion Timed Out! Contact Server Admin.');
             }
