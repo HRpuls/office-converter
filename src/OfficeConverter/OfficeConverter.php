@@ -54,7 +54,7 @@ class OfficeConverter
         $shell['return'] = 124;
         if (0 != $shell['return']) {
             
-            if (124 != $shell['return']) {
+            if (124 === $shell['return']) {
                 echo '<pre>info : ', print_r([
                     $filename,
                     $outdir,
