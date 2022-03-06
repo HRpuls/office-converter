@@ -52,6 +52,7 @@ class OfficeConverter
         $shell = $this->exec($this->makeCommand($outdir, $outputExtension, $timeout));
         // $shell['return'] = 124; //!for testing (mimic timeout)
         if (0 != $shell['return']) {
+            echo '<pre>shell : ', print_r($shell, true) ,'</pre>';
             
             if (124 === $shell['return']) {
                 // echo '<pre>info : ', print_r([
