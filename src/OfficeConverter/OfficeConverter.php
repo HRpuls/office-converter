@@ -34,6 +34,7 @@ class OfficeConverter
 
     /**
      * @param string $filename
+     * @param int $timeout
      *
      * @return string|null
      *
@@ -41,6 +42,8 @@ class OfficeConverter
      */
     public function convertTo($filename, $timeout = 0)
     { 
+        echo '<pre>timeout : ', print_r($timeout, true) ,'</pre>';
+
         $outputExtension = pathinfo($filename, PATHINFO_EXTENSION);
         $supportedExtensions = $this->getAllowedConverter($this->extension);
 
@@ -55,11 +58,11 @@ class OfficeConverter
             echo '<pre>shell : ', print_r($shell, true) ,'</pre>';
             
             if (124 === $shell['return']) {
-                // echo '<pre>info : ', print_r([
-                //     $filename,
-                //     $outdir,
-                //     $outputExtension
-                // ], true) ,'</pre>';
+                echo '<pre>info : ', print_r([
+                    $filename,
+                    $outdir,
+                    $outputExtension
+                ], true) ,'</pre>';
 
                 if (file_exists($outdir. '/.~lock.'.$filename.'#')) unlink($outdir. '/.~lock.'.$filename.'#');
 
